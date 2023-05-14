@@ -10,9 +10,21 @@ public abstract class Account {
     private int accountNumber;
     private AccountHolder holder;
 
-    public abstract void pay(BigDecimal price);
+    public void pay(BigDecimal price){
+        setBalance(getBalance().subtract(price));
+    }
 
-    public abstract void deposit(BigDecimal depositSum);
+    public void deposit(BigDecimal depositSum){
+        setBalance(getBalance().add(depositSum));
+        System.out.println("Ваш баланс был пополнен на " + depositSum);
+        System.out.println("Ваш текущий баланс " + getBalance());
+    }
+
+    public void calculateSavings(int interest){
+        System.out.println("За год вы заработаете " + getBalance().multiply(BigDecimal.valueOf(interest*0.01)));
+        System.out.println("Ваш баланс в конце года составит " + getBalance().add(getBalance().multiply(BigDecimal.valueOf(interest*0.01))));
+    }
+
 
     public BigDecimal getBalance() {
         return balance;
