@@ -5,14 +5,17 @@ import java.math.BigDecimal;
 public class SavingAccount extends Account {
     private static int interest;
 
-    @Override
-    public void deposit(BigDecimal depositSum) {
-        super.deposit(depositSum);
+    public SavingAccount(double balance, int accountNumber) {
+        super(balance, accountNumber);
     }
 
     @Override
-    public void calculateSavings(int interest) {
-        super.calculateSavings(interest);
-        //interest задается каждый раз при вызовы метода, а не берется от статической переменной выше
+    public void deposit(double depositSum) {
+        super.deposit(depositSum);
+    }
+
+    public void calculateSavings(){
+        System.out.println("За год вы заработаете " + getBalance().multiply(BigDecimal.valueOf(interest*0.01)));
+        System.out.println("Ваш баланс в конце года составит " + getBalance().add(getBalance().multiply(BigDecimal.valueOf(interest*0.01))));
     }
 }

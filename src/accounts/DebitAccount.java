@@ -3,9 +3,13 @@ package accounts;
 import java.math.BigDecimal;
 
 public class DebitAccount extends Account {
+    public DebitAccount(double balance, int accountNumber) {
+        super(balance, accountNumber);
+    }
+
     @Override
-    public void pay(BigDecimal price) {
-        if (getBalance().subtract(price).intValue() >= 0){
+    public void pay(double price) {
+        if (getBalance().subtract(BigDecimal.valueOf(price)).intValue() >= 0){
             super.pay(price);
         }else {
             System.out.println("Недостаточно средств.");
@@ -13,7 +17,7 @@ public class DebitAccount extends Account {
     }
 
     @Override
-    public void deposit(BigDecimal depositSum) {
+    public void deposit(double depositSum) {
         super.deposit(depositSum);
     }
 }

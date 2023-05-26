@@ -4,31 +4,32 @@ import java.math.BigDecimal;
 
 public class CreditAccount extends Account {
 
-    private int interest;
+    private int interest = 5;
     private BigDecimal creditLimit;
     private BigDecimal allDepositsSum;
 
-    @Override
-    public void pay(BigDecimal price) {
-        super.pay(price);
+    public CreditAccount(double balance, int accountNumber, double creditLimit) {
+        super(balance, accountNumber);
+        allDepositsSum = new BigDecimal(0);
+        this.creditLimit = BigDecimal.valueOf(creditLimit);
     }
 
+
     @Override
-    public void deposit(BigDecimal depositSum) {
-        calculateAllDeposits(depositSum);
-        if (getBalance().add(depositSum).intValue() < creditLimit.intValue()){
+    public void deposit(double depositSum) {
+        if (getBalance().add(BigDecimal.valueOf(depositSum)).compareTo(creditLimit) <= 0){
             super.deposit(depositSum);
+            allDepositsSum = allDepositsSum.add(BigDecimal.valueOf(depositSum));
+            System.out.println(allDepositsSum);
         }else{
             System.out.println("Вы достигли лимита пополнений по кредиту");
         }
-    }
-
-    public void calculateAllDeposits(BigDecimal depositSum) {
-        allDepositsSum.add(depositSum);
     }
 
     public void calculateCredit() {
         System.out.println("За год вы пополнили карту на " + allDepositsSum);
         System.out.println("За год вы должны будете банку " + allDepositsSum.add(allDepositsSum.multiply(BigDecimal.valueOf(interest * 0.01))));
     }
+
+
 }
