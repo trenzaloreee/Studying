@@ -7,54 +7,41 @@ import java.util.Scanner;
 
 public abstract class Account {
 
-    private static HashMap<String, Account> accountsMap = new HashMap<>();
+    private static HashMap<AccountHolder, Account> accountsMap = new HashMap<>();
 
     private static int numberOfAccounts;
 
     private BigDecimal balance;
+
     private int accountNumber;
+
     private AccountHolder holder;
 
-    @Override
-    public boolean equals(Object otherObject){
-        return accountNumber == ((Account)otherObject).getAccountNumber();
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(accountNumber);
-    }
-
-
-    public Account(double balance, int accountNumber) {
+    public Account(AccountHolder holder, double balance, int accountNumber) {
         this.balance = BigDecimal.valueOf(balance);
         this.accountNumber = accountNumber;
+        this.holder = holder;
         numberOfAccounts++;
-        accountsMap.put("default " + numberOfAccounts, this); //todo дефолт рефактор
+        accountsMap.put(holder, this);
     }
 
 
-//    public Account(String name) {
-//        this(100000, 283948923);
-//        accountsMap.put(name, this);
-//    }
-    public static void getAccounts(){
+    public static void getAccounts() {
         System.out.println("Общее количество аккаунтов: " + numberOfAccounts);
     }
 
-    public void pay(double price){
+    public void pay(double price) {
         System.out.println("Ваш баланс до покупки: " + getBalance());
         setBalance(getBalance().subtract(BigDecimal.valueOf(price)));
         System.out.println("Ваш баланс после покупки: " + getBalance());
     }
 
-    public void deposit(double depositSum){
+    public void deposit(double depositSum) {
         setBalance(getBalance().add(BigDecimal.valueOf(depositSum)));
         System.out.println("Ваш баланс был пополнен на " + depositSum);
         System.out.println("Ваш текущий баланс " + getBalance());
     }
-
-
 
 
     public BigDecimal getBalance() {
@@ -67,5 +54,26 @@ public abstract class Account {
 
     public int getAccountNumber() {
         return accountNumber;
+    }
+
+    public static Account getAccount(AccountHolder holder) {
+        return accountsMap.get(holder);
+    }
+
+    @Override
+    public boolean equals(Object otherObject) {
+        return accountNumber == ((Account) otherObject).getAccountNumber();
+        //todo добавить холдеров
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountNumber);
+    }
+
+    @Override
+    public String toString(){
+        return "Держатель аккаунта - " +  holder + "." + "\nБаланс счета: " + balance + "." + "\nНомер счета: " + accountNumber + ".";
+
     }
 }

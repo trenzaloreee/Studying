@@ -8,8 +8,8 @@ public class CreditAccount extends Account {
     private BigDecimal creditLimit;
     private BigDecimal allDepositsSum;
 
-    public CreditAccount(double balance, int accountNumber, double creditLimit) {
-        super(balance, accountNumber);
+    public CreditAccount(AccountHolder holder, double balance, int accountNumber, double creditLimit) {
+        super(holder, balance, accountNumber);
         allDepositsSum = new BigDecimal(0);
         this.creditLimit = BigDecimal.valueOf(creditLimit);
     }

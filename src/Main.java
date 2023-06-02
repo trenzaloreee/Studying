@@ -1,7 +1,4 @@
-import accounts.Account;
-import accounts.CreditAccount;
-import accounts.DebitAccount;
-import accounts.SavingAccount;
+import accounts.*;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -11,9 +8,20 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Account debit = new DebitAccount(0, 1234);
-        CreditAccount credit = new CreditAccount(0,2345, 10000);
-        Account saving = new SavingAccount(0, 3456);
+
+
+
+        Account debit = new DebitAccount(new AccountHolder("Alex", "Alex"), 0, 1234);
+        CreditAccount credit = new CreditAccount(new AccountHolder("John", "John"), 0,2345, 10000);
+        Account saving = new SavingAccount(new AccountHolder("Bob", "Bob"), 0, 3456);
+
+        AccountHolder alex = new AccountHolder("Alex", "Alex");
+
+        System.out.println(Account.getAccount(alex));
+
+        System.out.println(alex.equals(debit));
+
+
 
         debit.deposit(1000);
         credit.deposit(2000);
@@ -24,6 +32,8 @@ public class Main {
 
         credit.calculateCredit();
 
-        Account.getAccounts();
+//        Account.getAccounts();
+
+        // интерфейс с interest rate'м
     }
 }

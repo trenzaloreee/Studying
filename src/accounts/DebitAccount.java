@@ -3,8 +3,8 @@ package accounts;
 import java.math.BigDecimal;
 
 public class DebitAccount extends Account {
-    public DebitAccount(double balance, int accountNumber) {
-        super(balance, accountNumber);
+    public DebitAccount(AccountHolder holder, double balance, int accountNumber) {
+        super(holder, balance, accountNumber);
     }
 
     @Override
