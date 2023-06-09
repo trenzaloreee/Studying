@@ -3,9 +3,8 @@ package accounts;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.Scanner;
 
-public abstract class Account {
+public abstract class Account implements AccountInterface {
 
     private static HashMap<AccountHolder, Account> accountsMap = new HashMap<>();
 
@@ -27,16 +26,14 @@ public abstract class Account {
     }
 
 
-    public static void getAccounts() {
-        System.out.println("Общее количество аккаунтов: " + numberOfAccounts);
-    }
-
+    @Override
     public void pay(double price) {
         System.out.println("Ваш баланс до покупки: " + getBalance());
         setBalance(getBalance().subtract(BigDecimal.valueOf(price)));
         System.out.println("Ваш баланс после покупки: " + getBalance());
     }
 
+    @Override
     public void deposit(double depositSum) {
         setBalance(getBalance().add(BigDecimal.valueOf(depositSum)));
         System.out.println("Ваш баланс был пополнен на " + depositSum);
@@ -44,26 +41,24 @@ public abstract class Account {
     }
 
 
+    @Override
     public BigDecimal getBalance() {
         return balance;
     }
 
+    @Override
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
+    @Override
     public int getAccountNumber() {
         return accountNumber;
-    }
-
-    public static Account getAccount(AccountHolder holder) {
-        return accountsMap.get(holder);
     }
 
     @Override
     public boolean equals(Object otherObject) {
         return accountNumber == ((Account) otherObject).getAccountNumber();
-        //todo добавить холдеров
     }
 
     @Override
@@ -75,5 +70,13 @@ public abstract class Account {
     public String toString(){
         return "Держатель аккаунта - " +  holder + "." + "\nБаланс счета: " + balance + "." + "\nНомер счета: " + accountNumber + ".";
 
+    }
+
+    public static void getAccounts() {
+        System.out.println("Общее количество аккаунтов: " + numberOfAccounts);
+    }
+
+    public static Account getAccount(AccountHolder holder) {
+        return accountsMap.get(holder);
     }
 }

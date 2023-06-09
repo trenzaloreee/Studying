@@ -2,7 +2,7 @@ package accounts;
 
 import java.math.BigDecimal;
 
-public class CreditAccount extends Account {
+public class CreditAccount extends Account implements AccountWithInterest {
 
     private int interest = 5;
     private BigDecimal creditLimit;
@@ -32,4 +32,8 @@ public class CreditAccount extends Account {
     }
 
 
+    @Override
+    public double calcInterest(int months) {
+        return (1 + interest/100/12)^months;
+    }
 }
