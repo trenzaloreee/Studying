@@ -67,8 +67,8 @@ public abstract class Account implements AccountInterface {
     }
 
     @Override
-    public String toString(){
-        return "Держатель аккаунта - " +  holder + "." + "\nБаланс счета: " + balance + "." + "\nНомер счета: " + accountNumber + ".";
+    public String toString() {
+        return "Держатель аккаунта - " + holder + "." + "\nБаланс счета: " + balance + "." + "\nНомер счета: " + accountNumber + ".";
 
     }
 
@@ -78,5 +78,9 @@ public abstract class Account implements AccountInterface {
 
     public static Account getAccount(AccountHolder holder) {
         return accountsMap.get(holder);
+    }
+
+    public static void printHolders(){
+        accountsMap.keySet().stream().forEach(System.out::println);
     }
 }

@@ -6,10 +6,16 @@ public class AccountHolder {
     private String lastName;
     private String name;
 
+    public AccountHolder(String lastName, String name, Branch branch) {
+        this(lastName, name);
+        branch.addCustomer(this);
+    }
+
     public AccountHolder(String lastName, String name) {
         this.lastName = lastName;
         this.name = name;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -28,5 +34,9 @@ public class AccountHolder {
     @Override
     public String toString() {
         return lastName + " " + name;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 }
